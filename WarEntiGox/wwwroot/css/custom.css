@@ -1,0 +1,209 @@
+/* Genel Ayarlar */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0fdf4; /* Soft green background */
+    padding-top: 80px; /* Navbar yüksekliği kadar boşluk bırak */
+}
+
+/* Başlık */
+h1 {
+    text-align: center;
+    color: #4caf50;
+    margin-top: 20px;
+}
+
+/* Header (Navbar) */
+header {
+    background-color: #4caf50; /* Soft green header background */
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: flex-start; /* Align items to the left */
+    align-items: center;
+    position: fixed; /* Make header fixed */
+    width: 100%;
+    top: 0;
+    z-index: 1050; /* Navbar'ın üstte kalmasını sağlar */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header .logo-container img {
+    width: 300px; /* Increase image size */
+    height: 100px;
+    margin-right: 10px; /* Add space between logo and menu */
+}
+
+/* Navbar */
+.navbar {
+    background-color: #66bb6a; /* Soft green navbar */
+    color: white;
+    padding: 10px 0;
+    display: flex;
+    justify-content: flex-start; /* Align items to the left */
+    position: relative; /* Dropdown menülerinin navbar içinde düzgün görünmesini sağlar */
+    z-index: 1000; /* Navbar'ı alttaki menülerden öncelikli yapar */
+}
+
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar > ul > li {
+    position: relative;
+    padding: 15px 25px;
+    cursor: pointer;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.navbar > ul > li:hover {
+    background-color: #81c784; /* Hover effect soft green */
+    border-radius: 5px;
+}
+
+/* Alt Menü (Dropdown) */
+.sub-menu {
+    display: none;
+    list-style: none;
+    padding-left: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fcfcfd;
+    min-width: 200px;
+    border-radius: 5px;
+    z-index: 1050; /* Dropdown menülerinin navbar'dan öncelikli olması sağlanır */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.sub-menu li {
+    padding: 10px;
+}
+
+.sub-menu li a {
+    color: black;
+    font-size: 14px;
+}
+
+/* Alt Menünün Hover Etkisi */
+.navbar > ul > li:hover > .sub-menu {
+    display: block;
+    opacity: 1;
+}
+
+.sub-menu li:hover {
+    background-color: #d1e7dd; /* Hover effect soft green */
+}
+
+/* İç içe alt menü */
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu:hover > .sub-menu {
+    display: block;
+    opacity: 1;
+    left: 100%; /* Alt menü biraz sağa kayacak */
+    top: 0; /* İç içe alt menü, üst menüyle hizalanacak */
+}
+
+/* Alt Menünün Hover Etkisi (tekrar tanımlama) */
+.navbar > ul > li:hover > .sub-menu {
+    display: block;
+    opacity: 1;
+}
+
+/* Mobil Uyumluluk - iPhone 12 */
+@media screen and (max-width: 390px) {
+    .navbar ul {
+        display: block;
+        padding: 10px;
+    }
+    .navbar > ul > li {
+        display: block;
+        text-align: center;
+    }
+
+    .sub-menu {
+        position: static;
+        display: none;
+    }
+
+    .navbar > ul > li:hover > .sub-menu {
+        display: block;
+    }
+}
+
+/* Tablo ve Stil Düzenlemeleri */
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #4caf50;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* İşlem Butonları */
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 5px;
+}
+
+.btn-warning {
+    background-color: #ff9800;
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: #fb8c00;
+}
+
+.btn-danger {
+    background-color: #f44336;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #e53935;
+}
+
+/* Yeni Ürün Butonu */
+a.btn-primary {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #4caf50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+a.btn-primary:hover {
+    background-color: #66bb6a;
+}

@@ -1,0 +1,23 @@
+@model IEnumerable<WarEntiGox.Models.Sentence>
+
+<h1>Cümleler Listesi</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Cümle</th>
+        <th>İşlemler</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var sentence in Model)
+    {
+        <tr>
+            <td>@sentence.Content</td>
+            <td>
+                <a asp-action="Update" asp-route-id="@sentence.Id" class="btn btn-warning">Güncelle</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

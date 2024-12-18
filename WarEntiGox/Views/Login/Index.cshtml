@@ -1,0 +1,25 @@
+@model WarEntiGox.Models.LoginViewModel
+
+<h2>Login</h2>
+
+<form method="post">
+    <div>
+        <label for="UserName">Username:</label>
+        <input type="text" id="UserName" name="UserName" value="@Model.UserName" />
+        @Html.ValidationMessageFor(model => model.UserName)
+    </div>
+    <div>
+        <label for="Password">Password:</label>
+        <input type="password" id="Password" name="Password" />
+        @Html.ValidationMessageFor(model => model.Password)
+    </div>
+    <div>
+        <button type="submit">Login</button>
+    </div>
+</form>
+
+@section Scripts {
+    @* JavaScript validation (optional, if using client-side validation)*@
+    <script src="~/lib/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

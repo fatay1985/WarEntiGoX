@@ -1,0 +1,16 @@
+@model WarEntiGox.Models.Sentence
+
+@{
+    ViewData["Title"] = "Cümleyi Güncelle";
+}
+
+<h1>Cümleyi Güncelle</h1>
+
+<form asp-action="Update" method="post">
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label for="NewContent">Yeni Cümle</label>
+        <input type="text" id="NewContent" name="newContent" class="form-control" value="@Model.Content" />
+    </div>
+    <button type="submit" class="btn btn-primary">Güncelle</button>
+</form>

@@ -1,0 +1,35 @@
+@model WarEntiGox.Models.User
+
+@{
+    ViewData["Title"] = "Kullanıcı Düzenle";
+}
+
+<h1>Kullanıcı Düzenle</h1>
+
+<form asp-action="Edit" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="CompanyId" class="control-label">Şirket ID</label>
+        <input asp-for="CompanyId" class="form-control" />
+        <span asp-validation-for="CompanyId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="UserName" class="control-label">Adı</label>
+        <input asp-for="UserName" class="form-control" />
+        <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email" class="control-label">E-posta</label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Role" class="control-label">Rol</label>
+        <input asp-for="Role" class="form-control" />
+        <span asp-validation-for="Role" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Güncelle</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>

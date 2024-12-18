@@ -1,0 +1,40 @@
+@model IEnumerable<WarEntiGox.Models.Company>
+
+@{
+    ViewData["Title"] = "Şirketler Listesi";
+}
+
+<h1>Şirketler</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Yeni Şirket Ekle</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Şirket Adı</th>
+        <th>Adres</th>
+        <th>Telefon</th>
+        <th>Email</th>
+        <th>Oluşturulma Tarihi</th>
+        <th>İşlemler</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var company in Model)
+    {
+        <tr>
+            <td>@company.Name</td>
+            <td>@company.Address</td>
+            <td>@company.Phone</td>
+            <td>@company.Email</td>
+            <td>@company.CreateDate.ToShortDateString()</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@company.Id" class="btn btn-warning">Düzenle</a> |
+                <a asp-action="Delete" asp-route-id="@company.Id" class="btn btn-danger">Sil</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
