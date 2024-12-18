@@ -12,7 +12,8 @@
           "MongoDB.Bson": "3.1.0",
           "MongoDB.Driver": "3.1.0",
           "Swashbuckle.AspNetCore.SwaggerGen": "7.2.0",
-          "Swashbuckle.AspNetCore.SwaggerUI": "7.2.0"
+          "Swashbuckle.AspNetCore.SwaggerUI": "7.2.0",
+          "bootstrap": "5.3.3"
         },
         "runtime": {
           "WarEntiGox.dll": {}
@@ -26,6 +27,7 @@
           }
         }
       },
+      "bootstrap/5.3.3": {},
       "DnsClient/1.6.1": {
         "dependencies": {
           "Microsoft.Win32.Registry": "5.0.0"
@@ -160,6 +162,13 @@
       "sha512": "sha512-hsKiHGjrnlDW05MzuzzlD9gNP8YOW2KbZ+FbvISrilsKJJ76tXKhWey6psZX5sd7DczNpSU2U6ldjPoblk8BLw==",
       "path": "bcrypt.net-core/1.6.0",
       "hashPath": "bcrypt.net-core.1.6.0.nupkg.sha512"
+    },
+    "bootstrap/5.3.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-iQohLXwneNPDyW4x24mKQ90qGwT5WTtNl3KybL0koTluJPjKYxFCU/NTLHsJiWR2n7VmnwcpAgr8TR42KNmPOg==",
+      "path": "bootstrap/5.3.3",
+      "hashPath": "bootstrap.5.3.3.nupkg.sha512"
     },
     "DnsClient/1.6.1": {
       "type": "package",

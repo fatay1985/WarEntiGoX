@@ -1,25 +1,31 @@
 @model WarEntiGox.Models.LoginViewModel
+@{
+    Layout = "_LoginLayout";  // Use the custom login layout
+}
 
-<h2>Login</h2>
+<h2 class="text-center">Login</h2>
 
 <form method="post">
-    <div>
+    <div class="form-group">
         <label for="UserName">Username:</label>
-        <input type="text" id="UserName" name="UserName" value="@Model.UserName" />
-        @Html.ValidationMessageFor(model => model.UserName)
+        <input type="text" id="UserName" name="UserName" class="form-control" value="@(Model?.UserName ?? "")" />
+        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
     </div>
-    <div>
+    <div class="form-group">
         <label for="Password">Password:</label>
-        <input type="password" id="Password" name="Password" />
-        @Html.ValidationMessageFor(model => model.Password)
+        <input type="password" id="Password" name="Password" class="form-control" />
+        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
     </div>
-    <div>
-        <button type="submit">Login</button>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Login</button>
     </div>
 </form>
 
+<div class="text-center">
+    <a href="#">Forgot Password?</a> | <a href="#">Register</a>
+</div>
+
 @section Scripts {
-    @* JavaScript validation (optional, if using client-side validation)*@
     <script src="~/lib/jquery-validation/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }
