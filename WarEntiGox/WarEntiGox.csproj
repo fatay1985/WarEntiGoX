@@ -17,6 +17,10 @@
 
     <ItemGroup>
       <_ContentIncludedByDefault Remove="Views\Login\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\CompanyMVC\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\CompanyMVC\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\CompanyMVC\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\CompanyMVC\Index.cshtml" />
     </ItemGroup>
 
 </Project>

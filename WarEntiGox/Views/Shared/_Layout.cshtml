@@ -10,33 +10,111 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container-fluid">
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WarEntiGox</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+            <div class="navbar-collapse collapse">
+                <ul class="navbar-nav">
+                    <!-- Ürün Yönetimi -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="productManagementDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Ürün Yönetimi
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="productManagementDropdown">
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "ProductsControllerMvc")">Ürünler (Ekle, Düzenle, Sil)</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "ProductCategoryControllerMvc")">Kategoriler</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "TagsControllerMvc")">Etiketler</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "PricingControllerMvc")">Fiyatlandırma</a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+
+                    <!-- Satış Yönetimi -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="salesManagementDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Satış Yönetimi
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="salesManagementDropdown">
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "SalesControllerMvc")">Satışlar (Aktif, Geçmiş)</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "SalesInvoicesControllerMvc")">Satış Faturaları</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "PaymentsControllerMvc")">Ödemeler</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "DiscountsCampaignsControllerMvc")">İndirimler ve Kampanyalar</a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+
+                    <!-- Stok Yönetimi -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="stockManagementDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Stok Yönetimi
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="stockManagementDropdown">
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "StockTrackingControllerMvc")">Stok Takibi</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "WarehouseManagementControllerMvc")">Depo Yönetimi</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "InventoryCountingControllerMvc")">Envanter Sayımı</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "StockTransfersControllerMvc")">Stok Transferleri</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Satın Alma Yönetimi -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="purchaseManagementDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Satın Alma Yönetimi
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="purchaseManagementDropdown">
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "PurchaseRequestsControllerMvc")">Satın Alma Talepleri</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "PurchaseOrdersControllerMvc")">Satın Alma Siparişleri</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "SupplierManagementControllerMvc")">Tedarikçi Yönetimi</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- İade ve İptal -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="returnsAndCancellationsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            İade ve İptal
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="returnsAndCancellationsDropdown">
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "ReturnTransactionsControllerMvc")">İade İşlemleri</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "ReturnInvoicesControllerMvc")">İade Faturaları</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Raporlar -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="reportsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Raporlar
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="reportsDropdown">
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "SalesReportsControllerMvc")">Satış Raporları</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "StockReportsControllerMvc")">Stok Raporları</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "CustomerReportsControllerMvc")">Müşteri Raporları</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Ayarlar -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="settingsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Ayarlar
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="settingsDropdown">
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "UserControllerMvc")">Kullanıcı Yönetimi</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "CompanyControllerMvc")">Firma Ayarları</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "RolesPermissionsControllerMvc")">Yetkiler ve Roller</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "IntegratedSystemSettingsControllerMvc")">Entegre Sistemi Ayarları (API, ERP entegrasyonları)</a></li>
+                        </ul>
                     </li>
                 </ul>
-                <ul class="navbar-nav">
+
+                <ul class="navbar-nav ms-auto">
                     @if (Context.Session.GetString("UserId") != null)
                     {
                         <li class="nav-item">
-                            <span class="nav-link text-dark">Hoş geldiniz, @Context.Session.GetString("UserId")</span>
+                            <span class="nav-link text-dark">Welcome, @Context.Session.GetString("UserId")</span>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">Çıkış</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">Logout</a>
                         </li>
                     }
                 </ul>
@@ -68,11 +146,11 @@
                 <form id="loginForm" method="post" asp-controller="Login" asp-action="Index">
                     <div class="form-group">
                         <label for="UserName">Username:</label>
-                        <input type="text" class="form-control" id="UserName" name="UserName" />
+                        <input type="text" class="form-control" id="UserName" name="UserName" required />
                     </div>
                     <div class="form-group">
                         <label for="Password">Password:</label>
-                        <input type="password" class="form-control" id="Password" name="Password" />
+                        <input type="password" class="form-control" id="Password" name="Password" required />
                     </div>
                     <button type="submit" class="btn btn-primary">Login</button>
                 </form>

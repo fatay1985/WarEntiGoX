@@ -1,0 +1,134 @@
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+    display: none;
+}
+
+.dropdown-submenu:hover .dropdown-menu {
+    display: block;
+}
+/* Set default link color to black and hover to blue for the entire navbar */
+.navbar-nav .nav-link {
+    color: black;
+}
+
+.navbar-nav .nav-link:hover {
+    color: blue;
+}
+
+/* Style submenu dropdown items to match */
+.dropdown-menu .dropdown-item {
+    color: black;
+}
+
+/* Change submenu item color to blue on hover */
+.dropdown-menu .dropdown-item:hover {
+    color: blue;
+    background-color: transparent; /* Ensure no background change */
+}
+
+/* Submenu styling */
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+    display: none;
+}
+
+.dropdown-submenu:hover .dropdown-menu {
+    display: block;
+}
+/* Set default link color to black and hover to blue for all navbar items */
+.navbar-nav .nav-link {
+    color: black; /* Default color for all links */
+}
+
+/* Hover effect for all links: Change to blue */
+.navbar-nav .nav-link:hover {
+    color: blue; /* Change to blue when hovered */
+}
+
+/* Style for dropdown menu items */
+.dropdown-menu .dropdown-item {
+    color: black; /* Default color for dropdown items */
+}
+
+/* Hover effect for dropdown items: Change to blue */
+.dropdown-menu .dropdown-item:hover {
+    color: blue; /* Change to blue on hover */
+    background-color: transparent; /* Ensure background stays unchanged */
+}
+
+/* Submenu positioning and display */
+.dropdown-submenu {
+    position: relative;
+}
+
+/* Make submenus appear next to the parent menu */
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+    display: none;
+}
+
+/* Genel form stilleri */
+.form-control {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+/* Input alanlarının odaklanması (focus) */
+.form-control:focus {
+    border-color: #80bdff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, .25);
+}
+
+/* Select kutusuna stil ekleme */
+select.form-control {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+/* Select kutusunun odaklanması */
+select.form-control:focus {
+    border-color: #80bdff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, .25);
+}
+
+/* Buton stilini değiştirme */
+.btn {
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}

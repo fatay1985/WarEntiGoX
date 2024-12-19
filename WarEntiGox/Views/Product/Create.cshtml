@@ -1,0 +1,56 @@
+@model WarEntiGox.Models.Product
+
+@{
+    ViewData["Title"] = "Yeni Ürün Ekle";
+}
+
+<h2>Yeni Ürün Ekle</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Name" class="control-label">Ürün Adı</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price" class="control-label">Ürün Ücreti</label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="StockQuantity" class="control-label">Stok Miktarı</label>
+        <input asp-for="StockQuantity" class="form-control" />
+        <span asp-validation-for="StockQuantity" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SKU" class="control-label">Ürün Kodu</label>
+        <input asp-for="SKU" class="form-control" />
+        <span asp-validation-for="SKU" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="control-label">Ürün Açıklaması</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <!-- Kategori seçimi -->
+    <div class="form-group">
+        <label asp-for="CategoryId" class="control-label">Ürün Kategorisi</label>
+        @if (ViewBag.Categories != null)
+        {
+            <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories"></select>
+        }
+        else
+        {
+            <p class="text-danger">Kategoriler yüklenemedi.</p>
+        }
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Oluştur</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>

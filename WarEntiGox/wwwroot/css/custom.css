@@ -207,3 +207,14 @@ a.btn-primary {
 a.btn-primary:hover {
     background-color: #66bb6a;
 }
+/* Ensure submenus are displayed properly */
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+    margin-left: 0;
+}

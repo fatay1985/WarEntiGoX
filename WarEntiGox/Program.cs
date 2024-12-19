@@ -21,12 +21,16 @@ builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
 
 builder.Services.AddScoped<CompanyService>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<ProductService>();
+builder.Services.AddScoped<ProductCategoryService>();
+
+
 
 // Swagger kurulumunu ekleyelim
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "TradeOcean API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "WarEntiGox API", Version = "v1" });
 
     // Sadece ApiController attribute'lu controller'ları Swagger'a dahil et
     c.DocInclusionPredicate((_, api) =>
@@ -49,6 +53,7 @@ builder.Services.AddSession(options =>
 
 var app = builder.Build();
 
+app.UseCors("AllowAllOrigins");
 // Swagger'ı sadece geliştirme ortamında aktif edelim
 if (app.Environment.IsDevelopment())
 {

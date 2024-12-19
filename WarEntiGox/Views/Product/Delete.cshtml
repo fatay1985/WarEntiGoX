@@ -1,0 +1,15 @@
+@model WarEntiGox.Models.Product
+
+@{
+    ViewData["Title"] = "Ürünü Sil";
+}
+
+<h2>Ürünü Sil</h2>
+
+<p>Gerçekten <strong>@Model.Name</strong> ürününü silmek istiyor musunuz?</p>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Sil</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>

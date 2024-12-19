@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using WarEntiGox.Models;
 using WarEntiGox.Services;
+using System.Linq;
+using System.Threading.Tasks;
 
 [Route("mvc/[controller]")]
 public class CompanyControllerMvc : Controller
@@ -13,6 +15,7 @@ public class CompanyControllerMvc : Controller
         _companyService = companyService;
     }
 
+    // Index action: Kullanıcının kendi şirketine ait şirketleri gösterir.
     [HttpGet]
     public async Task<IActionResult> Index(string searchTerm)
     {
@@ -22,12 +25,16 @@ public class CompanyControllerMvc : Controller
             return RedirectToAction("Index", "Login"); // Kullanıcı oturum açmamışsa giriş sayfasına yönlendir
         }
 
+        // Filtreleme için arama terimini ViewData'ya aktar
         ViewData["CurrentFilter"] = searchTerm;
+
+        // Şirketleri getir
         var companies = await _companyService.GetCompaniesAsync();
 
         // Yalnızca oturum açmış kullanıcının şirketine ait verileri göster
         companies = companies.Where(c => c.CompanyId == companyId).ToList();
 
+        // Eğer bir arama terimi varsa, şirket isimlerine göre filtreleme yap
         if (!string.IsNullOrEmpty(searchTerm))
         {
             companies = companies.Where(c => c.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
@@ -36,12 +43,14 @@ public class CompanyControllerMvc : Controller
         return View(companies);
     }
 
+    // Yeni bir şirket oluşturma formuna yönlendir
     [HttpGet("Create")]
     public IActionResult Create()
     {
         return View();
     }
 
+    // Yeni şirketi oluştur
     [HttpPost("Create")]
     public async Task<IActionResult> Create(Company company)
     {
@@ -56,6 +65,7 @@ public class CompanyControllerMvc : Controller
         return View(company);
     }
 
+    // Şirketi düzenleme sayfasına yönlendir
     [HttpGet("Edit/{id}")]
     public async Task<IActionResult> Edit(string id)
     {
@@ -69,6 +79,7 @@ public class CompanyControllerMvc : Controller
         return View(company);
     }
 
+    // Şirketi güncelle
     [HttpPost("Edit/{id}")]
     public async Task<IActionResult> Edit(string id, Company company)
     {
@@ -84,6 +95,7 @@ public class CompanyControllerMvc : Controller
         return View(company);
     }
 
+    // Şirket silme sayfasına yönlendir
     [HttpGet("Delete/{id}")]
     public async Task<IActionResult> Delete(string id)
     {
@@ -97,6 +109,7 @@ public class CompanyControllerMvc : Controller
         return View(company);
     }
 
+    // Şirketi sil
     [HttpPost("Delete/{id}")]
     public async Task<IActionResult> DeleteConfirmed(string id)
     {
