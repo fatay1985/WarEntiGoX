@@ -1,35 +1,31 @@
 @model WarEntiGox.Models.User
 
 @{
-    ViewData["Title"] = "Kullanıcı Düzenle";
+    ViewData["Title"] = "Edit User";
 }
 
-<h1>Kullanıcı Düzenle</h1>
+<h2>Edit User</h2>
 
-<form asp-action="Edit" method="post">
-    @Html.AntiForgeryToken()
-    <input type="hidden" asp-for="Id" />
+<form method="post">
+    <div class="form-group">
+        <label for="UserName">User Name</label>
+        <input type="text" class="form-control" id="UserName" name="UserName" value="@Model?.UserName" required />
+    </div>
 
     <div class="form-group">
-        <label asp-for="CompanyId" class="control-label">Şirket ID</label>
-        <input asp-for="CompanyId" class="form-control" />
-        <span asp-validation-for="CompanyId" class="text-danger"></span>
+        <label for="Email">Email</label>
+        <input type="email" class="form-control" id="Email" name="Email" value="@Model?.Email" required />
     </div>
+
     <div class="form-group">
-        <label asp-for="UserName" class="control-label">Adı</label>
-        <input asp-for="UserName" class="form-control" />
-        <span asp-validation-for="UserName" class="text-danger"></span>
+        <label for="PasswordHash">Password</label>
+        <input type="password" class="form-control" id="PasswordHash" name="PasswordHash" value="@Model?.PasswordHash" required />
     </div>
+
     <div class="form-group">
-        <label asp-for="Email" class="control-label">E-posta</label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
+        <label for="Role">Role</label>
+        <input type="text" class="form-control" id="Role" name="Role" value="@Model?.Role" required />
     </div>
-    <div class="form-group">
-        <label asp-for="Role" class="control-label">Rol</label>
-        <input asp-for="Role" class="form-control" />
-        <span asp-validation-for="Role" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn btn-primary">Güncelle</button>
-    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+
+    <button type="submit" class="btn btn-primary">Save</button>
 </form>

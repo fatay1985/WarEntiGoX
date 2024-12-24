@@ -12,10 +12,13 @@ namespace WarEntiGox.Models
         [SwaggerIgnore]
         public ObjectId Id { get; set; }
         public int CompanyId { get; set; }
-        public string Name { get; set; } // Şirket adı
+        public string? Name { get; set; } // Şirket adı
+        public string Description { get; set; }
         public string Address { get; set; } // Şirket adresi
         public string Phone { get; set; } // Telefon
         public string Email { get; set; } // E-posta
+        [SwaggerIgnore]
+        public bool IsPublished { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime? UpdateDate { get; set; }
         public bool IsDeleted { get; set; }

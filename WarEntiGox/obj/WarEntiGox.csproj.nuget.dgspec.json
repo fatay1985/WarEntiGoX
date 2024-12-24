@@ -1,27 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "/Users/firatatay/RiderProjects/WarEntiGox/WarEntiGox/WarEntiGox.csproj": {}
+    "C:\\Users\\FIRATHOME\\Documents\\WarEntiGoX\\WarEntiGox\\WarEntiGox.csproj": {}
   },
   "projects": {
-    "/Users/firatatay/RiderProjects/WarEntiGox/WarEntiGox/WarEntiGox.csproj": {
+    "C:\\Users\\FIRATHOME\\Documents\\WarEntiGoX\\WarEntiGox\\WarEntiGox.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/firatatay/RiderProjects/WarEntiGox/WarEntiGox/WarEntiGox.csproj",
+        "projectUniqueName": "C:\\Users\\FIRATHOME\\Documents\\WarEntiGoX\\WarEntiGox\\WarEntiGox.csproj",
         "projectName": "WarEntiGox",
-        "projectPath": "/Users/firatatay/RiderProjects/WarEntiGox/WarEntiGox/WarEntiGox.csproj",
-        "packagesPath": "/Users/firatatay/.nuget/packages/",
-        "outputPath": "/Users/firatatay/RiderProjects/WarEntiGox/WarEntiGox/obj/",
+        "projectPath": "C:\\Users\\FIRATHOME\\Documents\\WarEntiGoX\\WarEntiGox\\WarEntiGox.csproj",
+        "packagesPath": "C:\\Users\\FIRATHOME\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\FIRATHOME\\Documents\\WarEntiGoX\\WarEntiGox\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/firatatay/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\FIRATHOME\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
-          "/usr/local/share/dotnet/sdk/7.0.317/Sdks/Microsoft.NET.Sdk.Web/library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -34,6 +38,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -84,7 +93,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.317/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.410\\RuntimeIdentifierGraph.json"
         }
       }
     }

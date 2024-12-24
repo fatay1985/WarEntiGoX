@@ -2,12 +2,12 @@ using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using WarEntiGox.Models;
 using WarEntiGox.Services;
-using Microsoft.AspNetCore.Authorization; // Authorize namespace
+using Microsoft.AspNetCore.Authorization;
 using System.Threading.Tasks;
 
 namespace WarEntiGox.Controllers.Aut
 {
-    [Authorize] // Bu sınıfın tüm aksiyonlarına yalnızca giriş yapmış kullanıcılar erişebilir.
+    [Authorize] // Yalnızca giriş yapmış kullanıcılar erişebilir
     public class SentenceController : Controller
     {
         private readonly SentenceService _sentenceService;
@@ -17,7 +17,6 @@ namespace WarEntiGox.Controllers.Aut
             _sentenceService = sentenceService;
         }
 
-        // GET: Sentence/Update/{id}
         [HttpGet]
         public async Task<IActionResult> Update(ObjectId id)
         {
@@ -28,7 +27,6 @@ namespace WarEntiGox.Controllers.Aut
             return View(sentence);
         }
 
-        // POST: Sentence/Update/{id}
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(ObjectId id, string newContent)

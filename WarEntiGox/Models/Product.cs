@@ -11,6 +11,7 @@ namespace WarEntiGox.Models
         [BsonRepresentation(BsonType.ObjectId)]
         [SwaggerIgnore]
         public ObjectId Id { get; set; }
+        public int ProductId { get; set; }
 
         public string Name { get; set; }
         public decimal Price { get; set; }

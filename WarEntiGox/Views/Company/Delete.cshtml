@@ -1,33 +1,36 @@
 @model WarEntiGox.Models.Company
 
 @{
-    ViewData["Title"] = "Şirket Sil";
+    ViewData["Title"] = "Delete Company";
 }
 
-<h1>Şirket Sil</h1>
-<h3>Bu şirketi silmek istediğinizden emin misiniz?</h3>
+<h2>Delete Company</h2>
 
-<div>
-    <h4>Şirket Bilgileri</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">Şirket Adı</dt>
-        <dd class="col-sm-10">@Model.Name</dd>
+<form method="post">
+    <div class="form-group">
+        <label>Name</label>
+        <p>@Model.Name</p>
+    </div>
 
-        <dt class="col-sm-2">Adres</dt>
-        <dd class="col-sm-10">@Model.Address</dd>
+    <div class="form-group">
+        <label>Description</label>
+        <p>@Model.Description</p>
+    </div>
 
-        <dt class="col-sm-2">Telefon</dt>
-        <dd class="col-sm-10">@Model.Phone</dd>
+    <div class="form-group">
+        <label>Address</label>
+        <p>@Model.Address</p>
+    </div>
 
-        <dt class="col-sm-2">E-posta</dt>
-        <dd class="col-sm-10">@Model.Email</dd>
-    </dl>
+    <div class="form-group">
+        <label>Phone</label>
+        <p>@Model.Phone</p>
+    </div>
 
-    <form asp-action="DeleteConfirmed" method="post">
-        @Html.AntiForgeryToken()
-        <input type="hidden" asp-for="Id" />
-        <button type="submit" class="btn btn-danger">Sil</button>
-        <a asp-action="Index" class="btn btn-secondary">İptal</a>
-    </form>
-</div>
+    <div class="form-group">
+        <label>Email</label>
+        <p>@Model.Email</p>
+    </div>
+
+    <button type="submit" class="btn btn-danger">Delete</button>
+</form>

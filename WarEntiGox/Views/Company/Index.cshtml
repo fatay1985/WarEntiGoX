@@ -6,30 +6,52 @@
 
 <h2>Companies</h2>
 
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New Company</a>
+</p>
+
 <form method="get" asp-action="Index">
-    <input type="text" name="searchTerm" value="@ViewData["CurrentFilter"]" placeholder="Search by company name" />
-    <button type="submit">Search</button>
+    <div class="form-group">
+        <input type="text" name="searchTerm" value="@ViewData["CurrentFilter"]" placeholder="Search by company name" class="form-control" />
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
 </form>
 
-<table class="table">
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Created Date</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var company in Model)
-    {
-        <tr>
-            <td>@company.Name</td>
-            <td>@company.CreateDate.ToString("dd/MM/yyyy")</td>
-            <td>
-                <a href="@Url.Action("Edit", "Company", new { id = company.Id.ToString() })">Edit</a> |
-                <a href="@Url.Action("Delete", "Company", new { id = company.Id.ToString() })">Delete</a>
-            </td>
-        </tr>
-    }
-    </tbody>
-</table>
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.First().Name)</th>
+                <th>@Html.DisplayNameFor(model => model.First().CreateDate)</th>
+                <th>@Html.DisplayNameFor(model => model.First().UpdateDate)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var company in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => company.Name)</td>
+                    <td>@company.CreateDate.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                    @if (company.UpdateDate.HasValue)
+                    {
+                        <td>@company.UpdateDate.Value.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@company.Id.ToString()" class="btn btn-warning">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@company.Id.ToString()" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No companies found.</p>
+}

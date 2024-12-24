@@ -1,9 +1,8 @@
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using WarEntiGox.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq;
 using System;
 
 namespace WarEntiGox.Services
@@ -11,6 +10,7 @@ namespace WarEntiGox.Services
     public class ProductService
     {
         private readonly IMongoCollection<Product> _products;
+        private readonly IMongoCollection<BsonDocument> _counterCollection;
         private readonly ProductCategoryService _categoryService;
 
         public ProductService(IMongoClient mongoClient, ProductCategoryService categoryService)
@@ -18,6 +18,7 @@ namespace WarEntiGox.Services
             var database = mongoClient.GetDatabase("WarEntiGox");
             _products = database.GetCollection<Product>("Product");
             _categoryService = categoryService;
+            _counterCollection = database.GetCollection<BsonDocument>("Counters");
         }
 
         // Retrieves all products
@@ -79,6 +80,21 @@ namespace WarEntiGox.Services
             {
                 throw new InvalidOperationException("Product not found.");
             }
+        }
+
+        // Get the next ProductId from the Counter collection
+        public async Task<int> GetNextProductIdAsync()
+        {
+            var filter = Builders<BsonDocument>.Filter.Eq("Name", "ProductId");
+            var update = Builders<BsonDocument>.Update.Inc("Value", 1);
+            var options = new FindOneAndUpdateOptions<BsonDocument>
+            {
+                IsUpsert = true,
+                ReturnDocument = ReturnDocument.After
+            };
+
+            var counter = await _counterCollection.FindOneAndUpdateAsync(filter, update, options);
+            return counter != null ? counter["Value"].AsInt32 : 1;  // Eğer counter yoksa 1 döner
         }
     }
 }

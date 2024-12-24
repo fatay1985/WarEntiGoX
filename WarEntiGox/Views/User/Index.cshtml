@@ -1,31 +1,59 @@
 @model IEnumerable<WarEntiGox.Models.User>
 
-<h1>Kullanıcı Listesi</h1>
-<p><a asp-action="Create" class="btn btn-primary">Yeni Kullanıcı Oluştur</a></p>
+@{
+    ViewData["Title"] = "Users";
+}
 
-<table class="table">
-    <thead>
-    <tr>
-        <th>Adı</th>
-        <th>E-posta</th>
-        <th>Rol</th>
-        <th>Oluşturma Tarihi</th>
-        <th>İşlemler</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var user in Model)
-    {
-        <tr>
-            <td>@user.UserName</td>
-            <td>@user.Email</td>
-            <td>@user.Role</td>
-            <td>@user.CreateDate.ToShortDateString()</td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-warning">Düzenle</a>
-                <a asp-action="Delete" asp-route-id="@user.Id" class="btn btn-danger">Sil</a>
-            </td>
-        </tr>
-    }
-    </tbody>
-</table>
+<h2>Users</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New User</a>
+</p>
+
+<form method="get" asp-action="Index">
+    <div class="form-group">
+        <input type="text" name="searchTerm" value="@ViewData["CurrentFilter"]" placeholder="Search by username" class="form-control" />
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.First().UserName)</th>
+                <th>@Html.DisplayNameFor(model => model.First().Email)</th>
+                <th>@Html.DisplayNameFor(model => model.First().CreateDate)</th>
+                <th>@Html.DisplayNameFor(model => model.First().UpdateDate)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => user.UserName)</td>
+                    <td>@Html.DisplayFor(modelItem => user.Email)</td>
+                    <td>@user.CreateDate.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                    @if (user.UpdateDate.HasValue)
+                    {
+                        <td>@user.UpdateDate.Value.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@user.Id.ToString()" class="btn btn-warning">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@user.Id.ToString()" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No users found.</p>
+}

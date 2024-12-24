@@ -18,13 +18,16 @@ namespace WarEntiGox.Controllers.API
             _userService = userService;
         }
 
+        // Get all users
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
         {
-            var users = await _userService.GetUsersAsync();
+            // Correct method name: GetAllUsersAsync
+            var users = await _userService.GetAllUsersAsync();
             return Ok(users);
         }
 
+        // Get a single user by ID
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUserById(string id)
         {
@@ -38,6 +41,7 @@ namespace WarEntiGox.Controllers.API
             return Ok(user);
         }
 
+        // Create a new user
         [HttpPost]
         public async Task<ActionResult> CreateUser([FromBody] User user)
         {
@@ -52,6 +56,7 @@ namespace WarEntiGox.Controllers.API
             return CreatedAtAction(nameof(GetUserById), new { id = user.Id.ToString() }, user);
         }
 
+        // Update an existing user
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateUser(string id, [FromBody] User user)
         {
@@ -65,6 +70,7 @@ namespace WarEntiGox.Controllers.API
             return NoContent();
         }
 
+        // Soft delete a user
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {

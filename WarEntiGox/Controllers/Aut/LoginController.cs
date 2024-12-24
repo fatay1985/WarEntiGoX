@@ -18,12 +18,13 @@ namespace WarEntiGox.Controllers.MVC
         [HttpGet]
         public IActionResult Index()
         {
+            // Kullanıcı giriş yapmışsa, Home sayfasına yönlendir
             if (HttpContext.Session.GetString("UserId") != null)
             {
                 return RedirectToAction("Index", "Home");
             }
 
-            var model = new LoginViewModel(); // Initialize an empty LoginViewModel
+            var model = new LoginViewModel();
             return View(model);
         }
 
@@ -32,6 +33,7 @@ namespace WarEntiGox.Controllers.MVC
         {
             if (ModelState.IsValid)
             {
+                // Kullanıcı doğrulama işlemi
                 var user = await _userService.ValidateUserAsync(model.UserName, model.Password);
 
                 if (user != null)
@@ -45,7 +47,7 @@ namespace WarEntiGox.Controllers.MVC
                 }
             }
 
-            return View(model); // Always return the model
+            return View(model); // Modeli tekrar döndür
         }
 
         [HttpGet("logout")]

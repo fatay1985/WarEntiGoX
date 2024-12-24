@@ -4,7 +4,10 @@ using WarEntiGox.Models;
 using WarEntiGox.Services;
 using MongoDB.Bson;
 
-public class ProductsControllerMvc : Controller
+namespace WarEntiGox.Controllers.MVC
+{
+    [Route("products")]
+    public class ProductsControllerMvc : Controller
 {
     private readonly ProductService _productService;
     private readonly ProductCategoryService _categoryService;
@@ -169,4 +172,5 @@ public class ProductsControllerMvc : Controller
             return RedirectToAction(nameof(Index));
         }
     }
+}
 }

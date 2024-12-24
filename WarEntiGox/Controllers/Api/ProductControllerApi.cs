@@ -49,6 +49,8 @@ namespace WarEntiGox.Controllers.API
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            // Assign ProductId automatically using ProductService
+            product.ProductId = await _productService.GetNextProductIdAsync();
             product.CreateDate = DateTime.Now;
             product.UpdateDate = DateTime.Now;
             product.IsDeleted = false;
