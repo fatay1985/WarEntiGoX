@@ -39,6 +39,7 @@ namespace WarEntiGox.Controllers.MVC
                 if (user != null)
                 {
                     HttpContext.Session.SetString("UserId", user.UserName);
+                    HttpContext.Session.SetInt32("CompanyId", user.CompanyId); // Kullanıcıyla birlikte CompanyId'yi session'a ekliyoruz
                     return RedirectToAction("Index", "Home");
                 }
                 else

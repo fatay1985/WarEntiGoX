@@ -11,12 +11,20 @@ namespace WarEntiGox.Services
     {
         private readonly IMongoCollection<User> _userCollection;
         private readonly IMongoCollection<BsonDocument> _counterCollection;
+        private readonly IMongoCollection<Company> _companyCollection; // Şirket koleksiyonu
 
         public UserService(IMongoClient mongoClient)
         {
             var database = mongoClient.GetDatabase("WarEntiGox");
             _userCollection = database.GetCollection<User>("Users");
             _counterCollection = database.GetCollection<BsonDocument>("Counters");
+            _companyCollection = database.GetCollection<Company>("Companies"); // Şirket koleksiyonu
+        }
+
+        // Tüm şirketleri getir
+        public async Task<List<Company>> GetAllCompaniesAsync()
+        {
+            return await _companyCollection.Find(FilterDefinition<Company>.Empty).ToListAsync();
         }
 
         // Get all users
@@ -51,6 +59,7 @@ namespace WarEntiGox.Services
                 .Set(u => u.UserName, user.UserName)
                 .Set(u => u.Email, user.Email)
                 .Set(u => u.Role, user.Role)
+                .Set(u => u.CompanyId, user.CompanyId) // Company Id güncellemesi
                 .Set(u => u.UpdateDate, user.UpdateDate)
                 .Set(u => u.IsDeleted, user.IsDeleted);
 

@@ -3,11 +3,12 @@
 @{
     ViewData["Title"] = "Ürünler";
     var categoryDict = ViewData["CategoryDict"] as Dictionary<string, string>;
+    var companyDict = ViewData["CompanyDict"] as Dictionary<int, string>; // Company dictionary for displaying company names
 
-    // Eğer categoryDict null ise, hata mesajı göster
-    if (categoryDict == null)
+    // Eğer categoryDict veya companyDict null ise, hata mesajı göster
+    if (categoryDict == null || companyDict == null)
     {
-        <p><strong>Hata:</strong> Kategori verisi bulunamadı.</p>
+        <p><strong>Hata:</strong> Kategori veya Şirket verisi bulunamadı.</p>
     }
 }
 
@@ -35,6 +36,7 @@
             <th>@Html.DisplayNameFor(model => model.First().SKU)</th>
             <th>@Html.DisplayNameFor(model => model.First().Description)</th>
             <th>Kategori</th>
+            <th>Şirket</th>  <!-- Company column added -->
             <th>@Html.DisplayNameFor(model => model.First().CreateDate)</th>
             <th>@Html.DisplayNameFor(model => model.First().UpdateDate)</th>
             <th></th>
@@ -51,7 +53,14 @@
                 <td>@Html.DisplayFor(modelItem => product.Description)</td>
 
                 <!-- Kategori adı gösterimi -->
-                <td>@(categoryDict.ContainsKey(product.CategoryId.ToString()) ? categoryDict[product.CategoryId.ToString()] : "Belirtilmemiş")</td>
+                <td>@(product.CategoryId != null && categoryDict != null && categoryDict.ContainsKey(product.CategoryId.ToString()) 
+                    ? categoryDict[product.CategoryId.ToString()] 
+                    : "Belirtilmemiş")</td>
+
+                <!-- Şirket adı gösterimi -->
+                <td>@(companyDict != null && companyDict.ContainsKey(product.CompanyId) 
+                    ? companyDict[product.CompanyId] 
+                    : "Belirtilmemiş")</td>  <!-- CompanyId'yi gösterdik -->
 
                 <td>@product.CreateDate.ToString("yyyy-MM-dd HH:mm:ss")</td>
                 @if (product.UpdateDate.HasValue)

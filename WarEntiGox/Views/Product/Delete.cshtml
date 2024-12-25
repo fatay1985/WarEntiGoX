@@ -4,12 +4,30 @@
     ViewData["Title"] = "Ürünü Sil";
 }
 
-<h2>Ürünü Sil</h2>
+<h1>@ViewData["Title"]</h1>
 
-<p>Gerçekten <strong>@Model.Name</strong> ürününü silmek istiyor musunuz?</p>
+<p>
+    <strong>Ürün Adı:</strong> @Model.Name
+</p>
+<p>
+    <strong>Fiyat:</strong> @Model.Price
+</p>
+<p>
+    <strong>Stok Adedi:</strong> @Model.StockQuantity
+</p>
+<p>
+    <strong>Açıklama:</strong> @Model.Description
+</p>
+<p>
+    <strong>SKU:</strong> @Model.SKU
+</p>
+<p>
+    <strong>Kategori:</strong> @Model.CategoryId
+</p>
 
-<form asp-action="Delete" method="post">
-    <input type="hidden" asp-for="Id" />
-    <button type="submit" class="btn btn-danger">Sil</button>
-    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+<form method="post" asp-action="Delete" asp-route-id="@Model.Id">
+    <div class="form-group">
+        <button type="submit" class="btn btn-danger">Sil</button>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">İptal</a>
+    </div>
 </form>

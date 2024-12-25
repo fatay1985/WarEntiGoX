@@ -8,169 +8,187 @@ namespace WarEntiGox.Controllers.MVC
 {
     [Route("products")]
     public class ProductsControllerMvc : Controller
-{
-    private readonly ProductService _productService;
-    private readonly ProductCategoryService _categoryService;
-
-    public ProductsControllerMvc(ProductService productService, ProductCategoryService categoryService)
     {
-        _productService = productService;
-        _categoryService = categoryService;
-    }
+        private readonly ProductService _productService;
+        private readonly ProductCategoryService _categoryService;
 
-    // Product listing with category names
-    [HttpGet]
-    public async Task<IActionResult> Index(string searchTerm)
-    {
-        ViewData["CurrentFilter"] = searchTerm;
-
-        var products = await _productService.GetAllProductsAsync() ?? new List<Product>();
-
-        if (!string.IsNullOrEmpty(searchTerm))
+        public ProductsControllerMvc(ProductService productService, ProductCategoryService categoryService)
         {
-            products = products.Where(p => p.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
+            _productService = productService;
+            _categoryService = categoryService;
         }
 
-        // Kategorileri alıyoruz
-        var categories = await _categoryService.GetAllCategoriesAsync();
-        var categoryDict = categories.ToDictionary(c => c.Id.ToString(), c => c.Name);
-
-        // Kategori ismini alıyoruz, CategoryId'yi kullanarak
-        foreach (var product in products)
+        // List products for the specific company
+        [HttpGet]
+        public async Task<IActionResult> Index(string searchTerm)
         {
-            if (categoryDict.ContainsKey(product.CategoryId.ToString()))
+            ViewData["CurrentFilter"] = searchTerm;
+
+            var companyId = HttpContext.Session.GetInt32("CompanyId");
+
+            if (!companyId.HasValue)
             {
-                product.Description += " (Kategori: " + categoryDict[product.CategoryId.ToString()] + ")";
+                return RedirectToAction("Index", "Login"); // If CompanyId not found, redirect to login
+            }
+
+            var products = await _productService.GetAllProductsAsync(companyId.Value);
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                products = products.Where(p => p.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+
+            return View("~/Views/Product/Index.cshtml", products);
+        }
+
+        // View product details for a specific company
+        [HttpGet("Details/{id}")]
+        public async Task<IActionResult> Details(ObjectId id)
+        {
+            var companyId = HttpContext.Session.GetInt32("CompanyId");
+
+            if (!companyId.HasValue)
+            {
+                return RedirectToAction("Index", "Login"); // If CompanyId not found, redirect to login
+            }
+
+            var product = await _productService.GetProductByIdAsync(id, companyId.Value);
+            if (product == null)
+            {
+                return NotFound(); // If product not found, return 404
+            }
+
+            return View("~/Views/Product/Details.cshtml", product);
+        }
+
+        // Create new product
+        [HttpGet("Create")]
+        public async Task<IActionResult> Create()
+        {
+            var companyId = HttpContext.Session.GetInt32("CompanyId");
+
+            if (!companyId.HasValue)
+            {
+                return RedirectToAction("Index", "Login"); // If CompanyId not found, redirect to login
+            }
+
+            var categories = await _categoryService.GetAllCategoriesAsync();
+            ViewBag.Categories = new SelectList(categories, "Id", "Name");
+
+            return View("~/Views/Product/Create.cshtml");
+        }
+
+        // Create product POST
+        [HttpPost("Create")]
+        public async Task<IActionResult> Create(Product product)
+        {
+            var companyId = HttpContext.Session.GetInt32("CompanyId");
+
+            if (!companyId.HasValue)
+            {
+                return RedirectToAction("Index", "Login"); // If CompanyId not found, redirect to login
+            }
+
+            if (!ModelState.IsValid)
+            {
+                var categories = await _categoryService.GetAllCategoriesAsync();
+                ViewBag.Categories = new SelectList(categories, "Id", "Name", product.CategoryId.ToString());
+                return View("~/Views/Product/Create.cshtml", product);
+            }
+
+            try
+            {
+                product.CompanyId = companyId.Value; // Assigning the CompanyId to the product
+                await _productService.CreateProductAsync(product);
+                return RedirectToAction(nameof(Index)); // Redirect to the product list
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
+                var categories = await _categoryService.GetAllCategoriesAsync();
+                ViewBag.Categories = new SelectList(categories, "Id", "Name", product.CategoryId.ToString());
+                return View("~/Views/Product/Create.cshtml", product); // On error, show the form again
             }
         }
 
-        // CategoryDict'i ViewData'ya aktarıyoruz
-        ViewData["CategoryDict"] = categoryDict;
-
-        return View("~/Views/Product/Index.cshtml", products);
-    }
-
-    // Product creation page
-    [HttpGet("Create")]
-    public async Task<IActionResult> Create()
-    {
-        var categories = await _categoryService.GetAllCategoriesAsync();
-        ViewBag.Categories = new SelectList(categories, "Id", "Name");
-        return View("~/Views/Product/Create.cshtml");
-    }
-
-    // Product creation action
-    [HttpPost("Create")]
-    public async Task<IActionResult> Create(Product product)
-    {
-        if (!ModelState.IsValid)
+        // Edit product page
+        [HttpGet("Edit/{id}")]
+        public async Task<IActionResult> Edit(ObjectId id)
         {
-            ModelState.AddModelError(string.Empty, "Please ensure all fields are filled correctly.");
+            var companyId = HttpContext.Session.GetInt32("CompanyId");
+
+            if (!companyId.HasValue)
+            {
+                return RedirectToAction("Index", "Login"); // If CompanyId not found, redirect to login
+            }
+
+            var product = await _productService.GetProductByIdAsync(id, companyId.Value);
+            if (product == null)
+            {
+                return NotFound(); // If product not found, return 404
+            }
+
             var categories = await _categoryService.GetAllCategoriesAsync();
             ViewBag.Categories = new SelectList(categories, "Id", "Name", product.CategoryId.ToString());
-            return View("~/Views/Product/Create.cshtml", product);
-        }
 
-        try
-        {
-            product.CreateDate = DateTime.Now;
-            product.UpdateDate = DateTime.Now;
-            product.IsDeleted = false;
-            product.IsPublished = true;
-
-            await _productService.CreateProductAsync(product);
-            return RedirectToAction(nameof(Index));
-        }
-        catch (Exception ex)
-        {
-            ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
-            var categories = await _categoryService.GetAllCategoriesAsync();
-            ViewBag.Categories = new SelectList(categories, "Id", "Name", product.CategoryId.ToString());
-            return View("~/Views/Product/Create.cshtml", product);
-        }
-    }
-
-    // Edit product page
-    [HttpGet("Edit/{id}")]
-    public async Task<IActionResult> Edit(string id)
-    {
-        var productId = new ObjectId(id);
-        var product = await _productService.GetProductByIdAsync(productId);
-        if (product == null)
-        {
-            return NotFound();
-        }
-
-        var categories = await _categoryService.GetAllCategoriesAsync();
-        ViewBag.Categories = new SelectList(categories, "Id", "Name", product.CategoryId.ToString());
-
-        return View("~/Views/Product/Edit.cshtml", product);
-    }
-
-    // Edit product action
-    [HttpPost("Edit/{id}")]
-    public async Task<IActionResult> Edit(string id, Product product)
-    {
-        var productId = new ObjectId(id);
-
-        if (productId != product.Id)
-        {
-            return NotFound();
-        }
-
-        if (!ModelState.IsValid)
-        {
-            ModelState.AddModelError(string.Empty, "Please ensure all fields are filled correctly.");
-            var categories = await _categoryService.GetAllCategoriesAsync();
-            ViewBag.Categories = new SelectList(categories, "Id", "Name", product.CategoryId.ToString());
             return View("~/Views/Product/Edit.cshtml", product);
         }
 
-        try
+        // Edit product POST
+        [HttpPost("Edit/{id}")]
+        public async Task<IActionResult> Edit(ObjectId id, Product product)
         {
-            product.UpdateDate = DateTime.Now;
-            await _productService.UpdateProductAsync(productId, product);
-            return RedirectToAction(nameof(Index));
+            var companyId = HttpContext.Session.GetInt32("CompanyId");
+
+            if (!companyId.HasValue)
+            {
+                return RedirectToAction("Index", "Login"); // If CompanyId not found, redirect to login
+            }
+
+            if (!ModelState.IsValid)
+            {
+                var categories = await _categoryService.GetAllCategoriesAsync();
+                ViewBag.Categories = new SelectList(categories, "Id", "Name", product.CategoryId.ToString());
+                return View("~/Views/Product/Edit.cshtml", product);
+            }
+
+            try
+            {
+                product.CompanyId = companyId.Value; // Assigning the CompanyId to the product
+                product.UpdateDate = DateTime.Now;
+                await _productService.UpdateProductAsync(id, product);
+                return RedirectToAction(nameof(Index)); // Redirect to the product list
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
+                var categories = await _categoryService.GetAllCategoriesAsync();
+                ViewBag.Categories = new SelectList(categories, "Id", "Name", product.CategoryId.ToString());
+                return View("~/Views/Product/Edit.cshtml", product); // On error, show the form again
+            }
         }
-        catch (Exception ex)
+
+        // Delete product
+        [HttpPost("Delete/{id}")]
+        public async Task<IActionResult> Delete(ObjectId id)
         {
-            ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
-            var categories = await _categoryService.GetAllCategoriesAsync();
-            ViewBag.Categories = new SelectList(categories, "Id", "Name", product.CategoryId.ToString());
-            return View("~/Views/Product/Edit.cshtml", product);
+            var companyId = HttpContext.Session.GetInt32("CompanyId");
+
+            if (!companyId.HasValue)
+            {
+                return RedirectToAction("Index", "Login"); // If CompanyId not found, redirect to login
+            }
+
+            try
+            {
+                await _productService.SoftDeleteProductAsync(id, companyId.Value);
+                return RedirectToAction(nameof(Index)); // Redirect to the product list
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
+                return RedirectToAction(nameof(Index)); // Redirect to the product list on error
+            }
         }
     }
-
-    // Delete product page
-    [HttpGet("Delete/{id}")]
-    public async Task<IActionResult> Delete(string id)
-    {
-        var productId = new ObjectId(id);
-        var product = await _productService.GetProductByIdAsync(productId);
-        if (product == null)
-        {
-            return NotFound();
-        }
-
-        return View("~/Views/Product/Delete.cshtml", product);
-    }
-
-    // Confirm delete product action
-    [HttpPost("Delete/{id}")]
-    [ActionName("Delete")]
-    public async Task<IActionResult> DeleteConfirmed(string id)
-    {
-        var productId = new ObjectId(id);
-        try
-        {
-            await _productService.SoftDeleteProductAsync(productId);
-            return RedirectToAction(nameof(Index));
-        }
-        catch (Exception ex)
-        {
-            ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
-            return RedirectToAction(nameof(Index));
-        }
-    }
-}
 }

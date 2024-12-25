@@ -1,19 +1,13 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MongoDB.Bson;
-using MongoDB.Driver;
-using Microsoft.AspNetCore.Mvc.Controllers;
-using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
-using WarEntiGox.Models;
 using WarEntiGox.Services;
-using static Microsoft.AspNetCore.Builder.WebApplication;
-using Microsoft.AspNetCore.Http; // Session kullanabilmek için ekledik
+using Microsoft.AspNetCore.Http;
+using MongoDB.Driver; // Session kullanabilmek için ekledik
 
-var builder = CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
 // MongoDB bağlantısını ekleyelim
 builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
@@ -24,20 +18,13 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<ProductCategoryService>();
 
-
-
 // Swagger kurulumunu ekleyelim
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "WarEntiGox API", Version = "v1" });
-
-    // Sadece ApiController attribute'lu controller'ları Swagger'a dahil et
-    c.DocInclusionPredicate((_, api) =>
-        api.ActionDescriptor is ControllerActionDescriptor descriptor &&
-        descriptor.ControllerTypeInfo.GetCustomAttributes(typeof(ApiControllerAttribute), true).Any());
 });
-  
+
 // MVC ve Razor Pages desteği
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();

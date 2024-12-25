@@ -21,20 +21,30 @@ namespace WarEntiGox.Controllers.API
 
         // GET: api/ProductControllerApi
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetAllProducts()
+        public async Task<ActionResult<IEnumerable<Product>>> GetAllProducts([FromQuery] int companyId)
         {
-            var products = await _productService.GetAllProductsAsync();
+            if (companyId <= 0)
+            {
+                return BadRequest("Invalid Company ID.");
+            }
+
+            var products = await _productService.GetAllProductsAsync(companyId);
             return Ok(products);
         }
 
         // GET: api/ProductControllerApi/{id}
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProductById(string id)
+        public async Task<ActionResult<Product>> GetProductById(string id, [FromQuery] int companyId)
         {
             if (!ObjectId.TryParse(id, out var objectId))
                 return BadRequest("Invalid ID format.");
 
-            var product = await _productService.GetProductByIdAsync(objectId);
+            if (companyId <= 0)
+            {
+                return BadRequest("Invalid Company ID.");
+            }
+
+            var product = await _productService.GetProductByIdAsync(objectId, companyId);
 
             if (product == null)
                 return NotFound();
@@ -44,10 +54,15 @@ namespace WarEntiGox.Controllers.API
 
         // POST: api/ProductControllerApi
         [HttpPost]
-        public async Task<ActionResult> CreateProduct([FromBody] Product product)
+        public async Task<ActionResult> CreateProduct([FromBody] Product product, [FromQuery] int companyId)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
+            if (companyId <= 0)
+            {
+                return BadRequest("Invalid Company ID.");
+            }
 
             // Assign ProductId automatically using ProductService
             product.ProductId = await _productService.GetNextProductIdAsync();
@@ -55,15 +70,16 @@ namespace WarEntiGox.Controllers.API
             product.UpdateDate = DateTime.Now;
             product.IsDeleted = false;
             product.IsPublished = true;
+            product.CompanyId = companyId; // Set CompanyId for the product
 
             await _productService.CreateProductAsync(product);
 
-            return CreatedAtAction(nameof(GetProductById), new { id = product.Id.ToString() }, product);
+            return CreatedAtAction(nameof(GetProductById), new { id = product.Id.ToString(), companyId = companyId }, product);
         }
 
         // PUT: api/ProductControllerApi/{id}
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateProduct(string id, [FromBody] Product product)
+        public async Task<ActionResult> UpdateProduct(string id, [FromBody] Product product, [FromQuery] int companyId)
         {
             if (!ObjectId.TryParse(id, out var objectId))
                 return BadRequest("Invalid ID format.");
@@ -71,12 +87,18 @@ namespace WarEntiGox.Controllers.API
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var existingProduct = await _productService.GetProductByIdAsync(objectId);
+            if (companyId <= 0)
+            {
+                return BadRequest("Invalid Company ID.");
+            }
+
+            var existingProduct = await _productService.GetProductByIdAsync(objectId, companyId);
             if (existingProduct == null)
                 return NotFound();
 
             product.Id = objectId;
             product.UpdateDate = DateTime.Now;
+            product.CompanyId = companyId; // Ensure the correct CompanyId is set
 
             await _productService.UpdateProductAsync(objectId, product);
 
@@ -85,16 +107,21 @@ namespace WarEntiGox.Controllers.API
 
         // DELETE: api/ProductControllerApi/Delete/{id}
         [HttpDelete("Delete/{id}")]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(string id, [FromQuery] int companyId)
         {
             if (!ObjectId.TryParse(id, out var objectId))
                 return BadRequest("Invalid ID format.");
 
-            var existingProduct = await _productService.GetProductByIdAsync(objectId);
+            if (companyId <= 0)
+            {
+                return BadRequest("Invalid Company ID.");
+            }
+
+            var existingProduct = await _productService.GetProductByIdAsync(objectId, companyId);
             if (existingProduct == null)
                 return NotFound();
 
-            await _productService.SoftDeleteProductAsync(objectId);
+            await _productService.SoftDeleteProductAsync(objectId, companyId);
 
             return NoContent();
         }
