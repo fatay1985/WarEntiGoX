@@ -366,4 +366,7 @@
       <Link>wwwroot/js/bootstrap.min.js.map</Link>
     </Content>
   </ItemGroup>
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgjQuery Condition=" '$(PkgjQuery)' == '' ">/Users/firatatay/.nuget/packages/jquery/1.8.0</PkgjQuery>
+  </PropertyGroup>
 </Project>

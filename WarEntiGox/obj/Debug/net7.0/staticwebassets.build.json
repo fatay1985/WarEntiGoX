@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "WfaZVkgnVHf44mlHh94MPRyK4xl30J3TdVjU7dFJKns=",
+  "Hash": "VlQt/UgGwX7HbxUggsBcDO7GX335N02HKodu18jDVRI=",
   "Source": "WarEntiGox",
   "BasePath": "_content/WarEntiGox",
   "Mode": "Default",
@@ -1885,6 +1885,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Identity": "/Users/firatatay/RiderProjects/WarEntiGoX/WarEntiGox/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
+      "SourceId": "WarEntiGox",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/firatatay/RiderProjects/warentigox/WarEntiGox/wwwroot/",
+      "BasePath": "_content/WarEntiGox",
+      "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"
+    },
+    {
+      "Identity": "/Users/firatatay/RiderProjects/WarEntiGoX/WarEntiGox/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
+      "SourceId": "WarEntiGox",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/firatatay/RiderProjects/warentigox/WarEntiGox/wwwroot/",
+      "BasePath": "_content/WarEntiGox",
+      "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
     },
     {
       "Identity": "/Users/firatatay/RiderProjects/WarEntiGoX/WarEntiGox/wwwroot/lib/jquery-validation-unobtrusive/LICENSE.txt",

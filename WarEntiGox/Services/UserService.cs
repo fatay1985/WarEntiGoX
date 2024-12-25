@@ -21,30 +21,24 @@ namespace WarEntiGox.Services
             _companyCollection = database.GetCollection<Company>("Companies"); // Şirket koleksiyonu
         }
 
-        // Tüm şirketleri getir
-        public async Task<List<Company>> GetAllCompaniesAsync()
-        {
-            return await _companyCollection.Find(FilterDefinition<Company>.Empty).ToListAsync();
-        }
-
-        // Get all users
+        // Retrieves all users
         public async Task<List<User>> GetAllUsersAsync()
         {
             var filter = Builders<User>.Filter.Eq(u => u.IsDeleted, false);
             return await _userCollection.Find(filter).ToListAsync();
         }
 
-        // Get a single user by ID
+        // Retrieves a single user by ID
         public async Task<User> GetUserByIdAsync(ObjectId id)
         {
             var user = await _userCollection.Find(u => u.Id == id && !u.IsDeleted).FirstOrDefaultAsync();
             return user;
         }
 
-        // Create a new user with a unique ID
+        // Creates a new user
         public async Task CreateUserAsync(User user)
         {
-            // Generate a unique UserId using the counter collection
+            // Ensure the UserId is unique and incremented
             user.UserId = await GetNextUserIdAsync();
             user.CreateDate = DateTime.Now;
             user.IsDeleted = false;
@@ -52,14 +46,14 @@ namespace WarEntiGox.Services
             await _userCollection.InsertOneAsync(user);
         }
 
-        // Update an existing user
+        // Updates an existing user
         public async Task UpdateUserAsync(ObjectId id, User user)
         {
             var update = Builders<User>.Update
                 .Set(u => u.UserName, user.UserName)
                 .Set(u => u.Email, user.Email)
                 .Set(u => u.Role, user.Role)
-                .Set(u => u.CompanyId, user.CompanyId) // Company Id güncellemesi
+                .Set(u => u.CompanyId, user.CompanyId) // CompanyId update
                 .Set(u => u.UpdateDate, user.UpdateDate)
                 .Set(u => u.IsDeleted, user.IsDeleted);
 
@@ -70,7 +64,7 @@ namespace WarEntiGox.Services
             }
         }
 
-        // Soft delete a user
+        // Performs a soft delete on a user
         public async Task SoftDeleteUserAsync(ObjectId id)
         {
             var update = Builders<User>.Update.Set(u => u.IsDeleted, true);
@@ -96,7 +90,7 @@ namespace WarEntiGox.Services
             return counter != null ? counter["Value"].AsInt32 : 1;  // If no counter, start from 1
         }
 
-        // Validate user credentials
+        // Validates user credentials for login
         public async Task<User> ValidateUserAsync(string userName, string password)
         {
             var filter = Builders<User>.Filter.Eq(u => u.UserName, userName);
@@ -109,6 +103,12 @@ namespace WarEntiGox.Services
             }
 
             return null; // Return null if the username or password is incorrect
+        }
+
+        // Retrieves all companies
+        public async Task<List<Company>> GetAllCompaniesAsync()
+        {
+            return await _companyCollection.Find(FilterDefinition<Company>.Empty).ToListAsync();
         }
     }
 }

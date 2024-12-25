@@ -1,13 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "liLdnuN5F0M=",
+  "dgSpecHash": "5HyA7Rh8/28=",
   "success": true,
   "projectFilePath": "/Users/firatatay/RiderProjects/warentigox/WarEntiGox/WarEntiGox.csproj",
   "expectedPackageFiles": [
     "/Users/firatatay/.nuget/packages/bcrypt.net-core/1.6.0/bcrypt.net-core.1.6.0.nupkg.sha512",
     "/Users/firatatay/.nuget/packages/bootstrap/5.3.3/bootstrap.5.3.3.nupkg.sha512",
     "/Users/firatatay/.nuget/packages/dnsclient/1.6.1/dnsclient.1.6.1.nupkg.sha512",
+    "/Users/firatatay/.nuget/packages/jquery/1.8.0/jquery.1.8.0.nupkg.sha512",
+    "/Users/firatatay/.nuget/packages/jquery.validation/1.8.0.1/jquery.validation.1.8.0.1.nupkg.sha512",
+    "/Users/firatatay/.nuget/packages/jquery.validation.unobtrusive/2.0.20710/jquery.validation.unobtrusive.2.0.20710.nupkg.sha512",
     "/Users/firatatay/.nuget/packages/microsoft.extensions.logging.abstractions/2.0.0/microsoft.extensions.logging.abstractions.2.0.0.nupkg.sha512",
+    "/Users/firatatay/.nuget/packages/microsoft.jquery.unobtrusive.validation/4.0.0/microsoft.jquery.unobtrusive.validation.4.0.0.nupkg.sha512",
     "/Users/firatatay/.nuget/packages/microsoft.netcore.platforms/5.0.0/microsoft.netcore.platforms.5.0.0.nupkg.sha512",
     "/Users/firatatay/.nuget/packages/microsoft.openapi/1.6.22/microsoft.openapi.1.6.22.nupkg.sha512",
     "/Users/firatatay/.nuget/packages/microsoft.win32.registry/5.0.0/microsoft.win32.registry.5.0.0.nupkg.sha512",

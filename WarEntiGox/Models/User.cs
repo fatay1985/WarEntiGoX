@@ -13,6 +13,7 @@ namespace WarEntiGox.Models
         public int UserId { get; set; }
         public int CompanyId { get; set; } // Şirket bilgisi
         public string UserName { get; set; } // Kullanıcı adı
+        public string PhoneNumber { get; set; }
         public string Email { get; set; } // E-posta
         public string PasswordHash { get; set; } // Şifre hash'i
         public string Role { get; set; } // Rol

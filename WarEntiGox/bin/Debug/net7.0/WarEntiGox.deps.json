@@ -9,11 +9,13 @@
       "WarEntiGox/1.0.0": {
         "dependencies": {
           "BCrypt.Net-Core": "1.6.0",
+          "Microsoft.jQuery.Unobtrusive.Validation": "4.0.0",
           "MongoDB.Bson": "3.1.0",
           "MongoDB.Driver": "3.1.0",
           "Swashbuckle.AspNetCore.SwaggerGen": "7.2.0",
           "Swashbuckle.AspNetCore.SwaggerUI": "7.2.0",
-          "bootstrap": "5.3.3"
+          "bootstrap": "5.3.3",
+          "jQuery.Validation.Unobtrusive": "2.0.20710"
         },
         "runtime": {
           "WarEntiGox.dll": {}
@@ -39,7 +41,24 @@
           }
         }
       },
+      "jQuery/1.8.0": {},
+      "jQuery.Validation/1.8.0.1": {
+        "dependencies": {
+          "jQuery": "1.8.0"
+        }
+      },
+      "jQuery.Validation.Unobtrusive/2.0.20710": {
+        "dependencies": {
+          "Microsoft.jQuery.Unobtrusive.Validation": "4.0.0"
+        }
+      },
       "Microsoft.Extensions.Logging.Abstractions/2.0.0": {},
+      "Microsoft.jQuery.Unobtrusive.Validation/4.0.0": {
+        "dependencies": {
+          "jQuery": "1.8.0",
+          "jQuery.Validation": "1.8.0.1"
+        }
+      },
       "Microsoft.NETCore.Platforms/5.0.0": {},
       "Microsoft.OpenApi/1.6.22": {
         "runtime": {
@@ -177,12 +196,40 @@
       "path": "dnsclient/1.6.1",
       "hashPath": "dnsclient.1.6.1.nupkg.sha512"
     },
+    "jQuery/1.8.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-laDFQRJrIRHT0Z0GVYklMt3bE0iu0MZFJwHwg21kt3SHb7Bj8TdNiM3K+ZdK1DzB8ZxKy8z7NkJvwMas+dmHBw==",
+      "path": "jquery/1.8.0",
+      "hashPath": "jquery.1.8.0.nupkg.sha512"
+    },
+    "jQuery.Validation/1.8.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cSBTW8FiNcFYy7h8jY38ffnJGia25HQH/z1TP3f8OKZhn1ZSGS7Bebz9nMevKbtsAjzHhDFp/Cq0cT+ixwiB5A==",
+      "path": "jquery.validation/1.8.0.1",
+      "hashPath": "jquery.validation.1.8.0.1.nupkg.sha512"
+    },
+    "jQuery.Validation.Unobtrusive/2.0.20710": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-b+1siHUyEjSM3fnPKFO4f19+frMy9JCw2vcOo2LFXfhkw/KTO9qOroDNmpi6TJUYUGIkffgPkNB8IGtph1DTQg==",
+      "path": "jquery.validation.unobtrusive/2.0.20710",
+      "hashPath": "jquery.validation.unobtrusive.2.0.20710.nupkg.sha512"
+    },
     "Microsoft.Extensions.Logging.Abstractions/2.0.0": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-6ZCllUYGFukkymSTx3Yr0G/ajRxoNJp7/FqSxSB4fGISST54ifBhgu4Nc0ItGi3i6DqwuNd8SUyObmiC++AO2Q==",
       "path": "microsoft.extensions.logging.abstractions/2.0.0",
       "hashPath": "microsoft.extensions.logging.abstractions.2.0.0.nupkg.sha512"
+    },
+    "Microsoft.jQuery.Unobtrusive.Validation/4.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-RJ1eBcFIwHINVocYtOlmBQd21jGgHOHGe7TLzmQ9VMRMUqAlJoxyCw1AayBkdExqrEZt0Wz9uaZiDX75NHQmSw==",
+      "path": "microsoft.jquery.unobtrusive.validation/4.0.0",
+      "hashPath": "microsoft.jquery.unobtrusive.validation.4.0.0.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/5.0.0": {
       "type": "package",
