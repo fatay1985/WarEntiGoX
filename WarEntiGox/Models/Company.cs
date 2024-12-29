@@ -27,7 +27,7 @@ namespace WarEntiGox.Models
         //public List<Product> Product { get; set; } = new List<Product>();
         //public List<Customer> Customers { get; set; } = new List<Customer>();
         //public List<Sale> Sales { get; set; } = new List<Sale>();
-        //public List<Warehouse> Warehouses { get; set; } = new List<Warehouse>();
+        //public List<Warehouse.cs> Warehouses { get; set; } = new List<Warehouse.cs>();
     }
 
 }

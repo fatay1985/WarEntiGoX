@@ -1,0 +1,26 @@
+@model WarEntiGox.Models.Warehouse
+
+@{
+    ViewData["Title"] = "Depo Düzenle";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post" asp-action="Edit" enctype="multipart/form-data">
+    <input type="hidden" name="Id" value="@Model.Id" />
+
+    <div class="form-group">
+        <label for="WarehouseName">Depo Adı</label>
+        <input type="text" class="form-control" id="WarehouseName" name="WarehouseName" value="@Model.WarehouseName" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Address">Depo Konumu</label>
+        <input type="text" class="form-control" id="Address" name="Address" value="@Model.Address" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Değişiklikleri Kaydet</button>
+</form>
+
+<br />
+<a href="@Url.Action("Index", "Warehouse")" class="btn btn-secondary">Geri Dön</a>

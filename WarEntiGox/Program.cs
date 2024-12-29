@@ -17,6 +17,10 @@ builder.Services.AddScoped<CompanyService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<ProductCategoryService>();
+builder.Services.AddScoped<WarehouseService>();
+builder.Services.AddScoped<WarehouseLocationService>();
+
+
 
 // Swagger kurulumunu ekleyelim
 builder.Services.AddEndpointsApiExplorer();

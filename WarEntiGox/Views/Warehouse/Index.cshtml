@@ -1,0 +1,40 @@
+@model IEnumerable<WarEntiGox.Models.Warehouse>
+
+<h2>Warehouse Listesi</h2>
+
+<p>
+    <a href="@Url.Action("Create", "Warehouse")" class="btn btn-primary">Yeni Depo Ekle</a>
+</p>
+
+<form method="get" class="form-inline">
+    <div class="form-group">
+        <input type="text" name="searchTerm" value="@ViewData["CurrentFilter"]" placeholder="Depo Ara" class="form-control" />
+        <button type="submit" class="btn btn-primary">Ara</button>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Ad</th>
+        <th>Adres</th>
+        <th>İşlemler</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var warehouse in Model)
+    {
+        <tr>
+            <td>@warehouse.WarehouseName</td>
+            <td>@warehouse.Address</td>
+            <td>
+                <a href="@Url.Action("Details", "Warehouse", new { id = warehouse.Id })" class="btn btn-info">Detaylar</a>
+                <a href="@Url.Action("Edit", "Warehouse", new { id = warehouse.Id })" class="btn btn-warning">Düzenle</a>
+                <form method="post" action="@Url.Action("Delete", "Warehouse", new { id = warehouse.Id })" style="display:inline;">
+                    <button type="submit" class="btn btn-danger">Sil</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -48,6 +48,9 @@ namespace WarEntiGox.Services
                 throw new InvalidOperationException("A product with the same SKU already exists for this company.");
             }
 
+            // Get the next ProductId from the Counter collection
+            product.ProductId = await GetNextProductIdAsync();
+
             await _products.InsertOneAsync(product);
         }
 
